@@ -3,8 +3,9 @@
 Local equation-to-LaTeX recognition with a Linux-first CLI.
 
 Formulens is being built for taking equations from PDFs, websites, and existing
-images into mathematical notes. The CLI currently provides configuration management. Capture, OCR, daemon mode,
-and clipboard integration are not implemented yet.
+images into mathematical notes. Version **0.0.1** currently provides configuration
+management. Capture, OCR, daemon mode, and clipboard integration are not
+implemented yet.
 
 ## Development
 

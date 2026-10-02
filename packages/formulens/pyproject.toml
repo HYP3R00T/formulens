@@ -1,18 +1,37 @@
 [project]
 name = "formulens"
-version = "0.1.0"
+version = "0.0.1"
 description = "Local equation-to-LaTeX recognition with a Linux-first CLI."
 readme = "README.md"
 requires-python = ">=3.14"
-authors = [{ name = "Rajesh", email = "hyperoot.tech@proton.me" }]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Rajesh Das", email = "hyperoot.tech@proton.me" }]
+keywords = ["latex", "equations", "ocr", "cli", "linux", "configuration"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Science/Research",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
 dependencies = [
-    "pydantic>=2.13.5",
-    "typer>=0.27.2",
-    "utilityhub-config>=0.2.7",
+  "pydantic>=2.13.5",
+  "typer>=0.27.2",
+  "utilityhub-config>=0.2.7",
 ]
 
 [project.scripts]
 formulens = "formulens:main"
+
+[project.urls]
+Homepage = "https://formulens.hyperoot.dev/"
+Documentation = "https://formulens.hyperoot.dev/"
+Repository = "https://github.com/HYP3R00T/formulens"
+Issues = "https://github.com/HYP3R00T/formulens/issues"
 
 [build-system]
 requires = ["uv_build>=0.12.7,<0.13.0"]
