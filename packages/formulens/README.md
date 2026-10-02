@@ -1,60 +1,136 @@
 # Formulens
 
-Formulens is a Linux-first CLI for a local equation-to-LaTeX workflow.
+Local equation-to-LaTeX recognition with a Linux-first CLI.
 
-Version **0.0.1** provides configuration management through Typer and UtilityHub
-Config. Equation recognition, screen capture, daemon mode, and clipboard
-integration are not implemented in this release.
+The development checkout now includes PaddleOCR-VL and GOT-OCR backends, image
+recognition, a model daemon, and a COSMIC capture adapter. The published `0.0.1`
+release provides configuration management only. Native desktop capture still
+needs an interactive check on your COSMIC session.
 
-## Installation
+## Development Setup
 
-Requires Python **3.14 or newer**. After this release is published, install it with
-[uv](https://docs.astral.sh/uv/):
+Requires Python 3.14, [mise](https://mise.jdx.dev/), and
+[uv](https://docs.astral.sh/uv/).
 
 ```bash
-uv tool install formulens
+git clone https://github.com/HYP3R00T/formulens.git
+cd formulens
+mise trust
+mise install
+uv sync --package formulens --extra ocr
+mise run install-cli
 ```
 
-## Configuration
+OCR requires an NVIDIA GPU and a working NVIDIA driver. The workspace installs
+CUDA-enabled PyTorch from the official CUDA 13.0 wheel index. Recognition has
+no CPU fallback. The daemon keeps model weights in GPU memory until it stops.
+
+## Recognize an Existing Image
 
 ```bash
-formulens --help
+formulens model-download
+formulens recognize /path/to/equation.png
+formulens recognize /path/to/equation.png --no-copy
+```
+
+The first run downloads the selected model. Subsequent runs reuse the download.
+The command prints LaTeX and copies it unless `--no-copy` is supplied or
+`copy_to_clipboard` is disabled. Your source image is never deleted.
+
+## Capture an Equation on COSMIC
+
+Start the model service in a terminal:
+
+```bash
+formulens daemon
+```
+
+Wait for **Formulens daemon ready**, then run:
+
+```bash
+formulens capture
+```
+
+Select the equation in COSMIC's normal screenshot overlay. The capture command
+uses the image returned by that particular request, moves it into temporary
+storage, and deletes it after recognition, including on failure. Capturing to
+COSMIC's clipboard is supported too. Ordinary screenshots are not watched or
+processed. This does not change your normal screenshot shortcut.
+
+Bind an additional COSMIC custom shortcut to the absolute path printed by
+`command -v formulens`, followed by `capture`. Keep the daemon running while
+using that shortcut. Stop it with Ctrl+C. A daemon loads settings once; restart
+it after changing the model or device.
+
+Existing images can also use the loaded service:
+
+```bash
+formulens recognize /path/to/equation.png --daemon
+```
+
+Clipboard integration uses Pyperclip to select the operating system backend.
+On Wayland it requires `wl-clipboard`; X11 requires `xclip` or `xsel`.
+Pyperclip also supports macOS and Windows. Notifications
+use `notify-send` when available. Native capture currently requires
+`cosmic-screenshot`; other desktop capture adapters can be added separately.
+
+## Configuration and Storage
+
+```bash
 formulens config init
 formulens config path
 formulens config show
-formulens config set notifications false
+formulens config set model got
+formulens config set device cuda
+formulens config set model_directory '~/.cache/formulens/models'
 ```
 
-Settings are stored at `~/.config/formulens/formulens.toml`:
+Settings live at `~/.config/formulens/formulens.toml` through
+[UtilityHub Config](https://utilityhub.hyperoot.dev/packages/utilityhub_config/):
 
 ```toml
 copy_to_clipboard = true
 notifications = true
+model = "paddle"
+model_directory = "~/.config/formulens/models"
+device = "cuda"
+max_tokens = 1024
 ```
 
-`init` preserves existing configuration. `path` prints its location. `show`
-displays effective settings as JSON without creating files. `set` validates and
-saves an edit. These preferences are stored for future desktop integration;
-they do not yet trigger clipboard output or notifications.
+`model` accepts `paddle` or `got`. Models are stored in Hugging Face's cache layout
+under `model_directory`, separately from configuration files. Temporary captures
+use the system temporary directory; the daemon socket uses the user runtime
+directory. Model revisions are fixed in the backend for repeatable downloads.
 
-Environment variables such as `FORMULENS_NOTIFICATIONS=false` override saved
-values. Formulens loads global TOML/YAML configuration and any `.env` inside its
-configuration directory, without searching the current working directory.
-`set` updates only the TOML file and does not save environment overrides.
+`init` preserves existing files. Settings require `device = "cuda"`; remove
+`cpu_threads` from configs created before GPU-only support. `set` validates edits
+before saving. Environment
+variables such as `FORMULENS_DEVICE=cuda` override saved values; `set` does not
+persist environment overrides. Formulens confines config discovery to its own
+configuration directory, including any `.env` there.
 
-## Development
+Paddle recognized a synthetic equation on an RTX 3050 Laptop GPU using CUDA:
+22 seconds for the first request and 12 seconds for the next request, with the
+model staying loaded. Timing and accuracy depend on the equation and hardware.
+Paddle remains the default model; GOT misread a synthetic test crop.
 
-From a checkout of the repository:
+## Code Structure
+
+- `commands/`: CLI commands and error presentation.
+- `configuration/`: validated settings and persistence.
+- `recognition/`: model inference and the local service.
+- `desktop/`: capture, clipboard, and notification adapters.
+- `cli.py`: command registration.
+
+These directories live in `packages/formulens/src/formulens/`. The workspace
+shares `uv.lock` and uses `mise.toml` for development tooling.
+
+## Checks
 
 ```bash
-uv sync --all-packages
-uv run formulens --help
-uv run python -m unittest discover -s tests
+uv run --package formulens --extra ocr python -m unittest discover -s tests
+prek run --all-files
 ```
 
-See the [project repository](https://github.com/HYP3R00T/formulens) for development
-setup and documentation.
-
-## License
-
-MIT. Copyright 2026 Rajesh Das. The license is included in the distribution.
+[Documentation](https://formulens.hyperoot.dev/) ·
+[Repository](https://github.com/HYP3R00T/formulens) · MIT license.

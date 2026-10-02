@@ -9,6 +9,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from formulens.cli import app
+from formulens.configuration.schema import Settings
 from typer.testing import CliRunner
 
 
@@ -28,7 +29,7 @@ class ConfigurationTests(unittest.TestCase):
         self.assertEqual(result.output.strip(), str(self.path))
         result = self.runner.invoke(app, ["config", "show"])
         self.assertEqual(result.exit_code, 0, result.output)
-        self.assertEqual(json.loads(result.output), {"copy_to_clipboard": True, "notifications": True})
+        self.assertEqual(json.loads(result.output), Settings().model_dump())
         self.assertFalse(self.path.exists())
 
     def test_init_preserves_edits_and_set_roundtrips(self) -> None:

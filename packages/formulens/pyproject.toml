@@ -1,13 +1,13 @@
 [project]
 name = "formulens"
 version = "0.0.1"
-description = "Local equation-to-LaTeX recognition with a Linux-first CLI."
+description = "NVIDIA GPU equation-to-LaTeX recognition with a Linux-first CLI."
 readme = "README.md"
 requires-python = ">=3.14"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Rajesh Das", email = "hyperoot.tech@proton.me" }]
-keywords = ["latex", "equations", "ocr", "cli", "linux", "configuration"]
+keywords = ["cli", "configuration", "equations", "latex", "linux", "ocr"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Environment :: Console",
@@ -20,19 +20,36 @@ classifiers = [
 ]
 dependencies = [
   "pydantic>=2.13.5",
+  "pyperclip>=1.11.0",
   "typer>=0.27.2",
   "utilityhub-config>=0.2.7",
 ]
 
+[project.urls]
+Documentation = "https://formulens.hyperoot.dev/"
+Homepage = "https://formulens.hyperoot.dev/"
+Issues = "https://github.com/HYP3R00T/formulens/issues"
+Repository = "https://github.com/HYP3R00T/formulens"
+
 [project.scripts]
 formulens = "formulens:main"
 
-[project.urls]
-Homepage = "https://formulens.hyperoot.dev/"
-Documentation = "https://formulens.hyperoot.dev/"
-Repository = "https://github.com/HYP3R00T/formulens"
-Issues = "https://github.com/HYP3R00T/formulens/issues"
+[project.optional-dependencies]
+ocr = [
+  "huggingface-hub>=1.31.0,<2",
+  "pillow>=12.3.0",
+  "torch>=2.14.1",
+  "transformers>=5.18.0",
+]
 
 [build-system]
 requires = ["uv_build>=0.12.7,<0.13.0"]
 build-backend = "uv_build"
+
+[[tool.uv.index]]
+name = "pytorch-cuda"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cuda" }

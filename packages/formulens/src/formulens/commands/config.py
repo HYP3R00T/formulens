@@ -37,7 +37,7 @@ def config_show() -> None:
 @app.command("set")
 def config_set(
     key: Annotated[str, typer.Argument(help="Setting name, such as notifications.")],
-    value: Annotated[str, typer.Argument(help="New value: true or false.")],
+    value: Annotated[str, typer.Argument(help="New setting value.")],
 ) -> None:
     """Validate and save a setting in the global TOML file."""
     typer.echo(run_config_action(lambda: set_setting(key, value)))

@@ -4,10 +4,31 @@ icon: lucide/scan
 
 # Formulens
 
-Local equation-to-LaTeX recognition with a Linux-first CLI.
+NVIDIA GPU equation-to-LaTeX recognition with a Linux-first CLI.
 
-The repository currently contains a Python 3.14 workspace with a single
-`formulens` package. Its Typer CLI provides `config init`, `config path`,
-`config show`, and `config set` using UtilityHub Config. Settings are stored in
-`~/.config/formulens/formulens.toml`. Equation recognition, capture, daemon mode,
-and clipboard integration are not implemented yet.
+The development checkout provides image recognition through PaddleOCR-VL or
+GOT-OCR, a model daemon, and a COSMIC capture adapter. Native desktop capture
+still needs an interactive verification on COSMIC. PyPI version `0.0.1` contains
+configuration management only. Recognition requires CUDA-enabled PyTorch and a
+working NVIDIA driver. The daemon keeps the model in GPU memory until it stops;
+there is no CPU fallback.
+
+## Commands
+
+```bash
+formulens config show
+formulens model-download
+formulens recognize /path/to/equation.png --no-copy
+formulens daemon
+```
+
+Once the daemon reports ready, `formulens capture` opens COSMIC's screenshot
+selector and sends the selected image to the loaded model. Temporary captures
+are deleted after processing. Existing images are preserved.
+
+Settings are stored at `~/.config/formulens/formulens.toml`; downloaded models
+use `~/.config/formulens/models` by default. Change this location with
+`formulens config set model_directory /your/model/cache`.
+
+See the [repository README](https://github.com/HYP3R00T/formulens#readme) for
+installation, settings, desktop requirements, and development checks.
