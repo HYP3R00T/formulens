@@ -1,0 +1,11 @@
+{
+	"name": "devcontainer-python-template",
+	"build": {
+		"context": ".",
+		"dockerfile": "Dockerfile"
+	},
+	"postCreateCommand": "bash scripts/setup.sh",
+	"remoteEnv": {
+		"MISE_GITHUB_TOKEN": "${localEnv:MISE_GITHUB_TOKEN}"
+	}
+}
