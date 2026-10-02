@@ -11,7 +11,7 @@ from pathlib import Path
 
 from formulens.configuration.schema import Settings
 from formulens.recognition.engine import EquationRecognizer
-from formulens.recognition.logging import configure_logging, get_log_path
+from formulens.recognition.logging import configure_logging, get_log_path, model_loading_output
 
 
 def get_socket_path() -> Path:
@@ -65,10 +65,12 @@ def serve(settings: Settings) -> None:
 def _serve_locked(settings: Settings, socket_path: Path) -> None:
     """Keep the instance lock held during model loading and request processing."""
     logger = configure_logging()
-    logger.info("Loading %s on CUDA; logs: %s", settings.model, get_log_path())
+    logger.info("Starting Formulens · %s · NVIDIA CUDA", settings.model)
+    logger.info("Log file: %s", get_log_path())
     engine = EquationRecognizer(settings)
     try:
-        engine.load()
+        with model_loading_output(logger):
+            engine.load()
     except Exception:
         logger.exception("Model loading failed")
         raise
@@ -95,9 +97,11 @@ def _serve_locked(settings: Settings, socket_path: Path) -> None:
                 else:
                     processed += 1
                     started = time.monotonic()
-                    logger.info("Request %s: processing %s", processed, request["path"])
+                    logger.info("Equation #%s · Processing", processed)
+                    logger.debug("Input: %s", request["path"])
                     text = engine.recognize(Path(request["path"]))
-                    logger.info("Request %s: finished in %.2fs; LaTeX: %r", processed, time.monotonic() - started, text)
+                    logger.info("Equation #%s · Ready in %.2fs", processed, time.monotonic() - started)
+                    logger.info("LaTeX: %s", text)
                     response = {"latex": text}
             except Exception as error:
                 logger.exception("Request failed")
@@ -108,7 +112,9 @@ def _serve_locked(settings: Settings, socket_path: Path) -> None:
     try:
         with socketserver.UnixStreamServer(str(socket_path), RequestHandler) as server:
             os.chmod(socket_path, 0o600)
-            logger.info("Ready: %s (model stays loaded on %s)", socket_path, engine.device)
+            logger.info("Ready · Model stays loaded on %s · Waiting for equations", engine.device)
+            logger.info("Stop with formulens daemon off or Ctrl+C")
+            logger.debug("Socket: %s", socket_path)
             while not stopping:
                 server.handle_request()
     finally:

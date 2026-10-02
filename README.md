@@ -65,8 +65,11 @@ using that shortcut. Stop it with Ctrl+C or from another terminal:
 formulens daemon off
 ```
 
-Shutdown waits for any active recognition to finish. The daemon prints timestamps,
-processing status, elapsed time, recognized LaTeX, and errors to its terminal.
+Shutdown waits for any active recognition to finish. The daemon uses Rich for
+colored timestamps, a loading spinner, processing status, elapsed time, recognized
+LaTeX, and concise errors. Known upstream processor and rotary-position
+compatibility notices appear only in the log file; unexpected warnings remain
+visible. Full error tracebacks are also retained in the file.
 The same logs are stored at `~/.local/state/formulens/daemon.log` (or beneath
 `XDG_STATE_HOME`), with rotation at 2 MiB and three backups. Logs retain recognized
 equations, but screenshots are still deleted after processing.

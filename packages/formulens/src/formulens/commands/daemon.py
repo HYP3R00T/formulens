@@ -17,7 +17,6 @@ def daemon(context: typer.Context) -> None:
     if context.invoked_subcommand is not None:
         return
     settings = run_action(load_configuration)
-    typer.echo(f"Loading {settings.model} on {settings.device}; models: {settings.get_model_directory()}", err=True)
     with suppress(KeyboardInterrupt):
         run_action(lambda: serve(settings))
 

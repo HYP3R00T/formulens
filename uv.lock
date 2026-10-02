@@ -157,6 +157,7 @@ source = { editable = "packages/formulens" }
 dependencies = [
     { name = "pydantic" },
     { name = "pyperclip" },
+    { name = "rich" },
     { name = "typer" },
     { name = "utilityhub-config" },
 ]
@@ -175,6 +176,7 @@ requires-dist = [
     { name = "pillow", marker = "extra == 'ocr'", specifier = ">=12.3.0" },
     { name = "pydantic", specifier = ">=2.13.5" },
     { name = "pyperclip", specifier = ">=1.11.0" },
+    { name = "rich", specifier = ">=15.0.0" },
     { name = "torch", marker = "extra == 'ocr'", specifier = ">=2.14.1", index = "https://download.pytorch.org/whl/cu130" },
     { name = "transformers", marker = "extra == 'ocr'", specifier = ">=5.18.0" },
     { name = "typer", specifier = ">=0.27.2" },

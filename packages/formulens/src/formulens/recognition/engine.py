@@ -39,7 +39,7 @@ class EquationRecognizer:
             return
         try:
             import torch
-            from transformers import AutoModelForImageTextToText, AutoProcessor
+            from transformers import AutoConfig, AutoModelForImageTextToText, AutoProcessor
         except ImportError as error:
             raise RuntimeError("Install OCR support with: uv sync --package formulens --extra ocr") from error
 
@@ -51,12 +51,21 @@ class EquationRecognizer:
         cache = self.settings.get_model_directory()
         cache.mkdir(parents=True, exist_ok=True)
         self.processor = AutoProcessor.from_pretrained(model_id, revision=revision, cache_dir=cache)
+        model_options = {}
+        if self.settings.model == "paddle":
+            config = AutoConfig.from_pretrained(model_id, revision=revision, cache_dir=cache)
+            # Transformers' legacy flat-config conversion changes this checkpoint's
+            # untied embeddings to tied defaults. Preserve its separate weights.
+            config.tie_word_embeddings = False
+            config.text_config.tie_word_embeddings = False
+            model_options["config"] = config
         model: Any = AutoModelForImageTextToText.from_pretrained(
             model_id,
             revision=revision,
             cache_dir=cache,
             dtype=torch.float16,
             attn_implementation="sdpa" if self.settings.model == "paddle" else "eager",
+            **model_options,
         )
         self.model = model.to(self.device).eval()
 
