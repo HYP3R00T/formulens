@@ -1,6 +1,6 @@
 [project]
 site_name = "Formulens"
-site_description = "Local equation-to-LaTeX recognition with a Linux-first CLI."
+site_description = "Turn equation screenshots into LaTeX locally on an NVIDIA GPU."
 repo_name = "HYP3R00T/formulens"
 repo_url = "https://github.com/HYP3R00T/formulens"
 site_author = "Rajesh Das"
@@ -8,6 +8,12 @@ copyright = "Copyright &copy; 2026 Rajesh Das"
 
 nav = [
   { Home = "index.md" },
+  { Installation = "installation.md" },
+  { Usage = "usage.md" },
+  { Configuration = "configuration.md" },
+  { Troubleshooting = "troubleshooting.md" },
+  { Development = "development.md" },
+  { "Release notes" = "releases.md" },
 ]
 
 [project.theme]

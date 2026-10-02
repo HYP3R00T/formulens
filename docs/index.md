@@ -4,35 +4,29 @@ icon: lucide/scan
 
 # Formulens
 
-NVIDIA GPU equation-to-LaTeX recognition with a Linux-first CLI.
+Turn equation screenshots into LaTeX without typing them out.
 
-The development checkout provides image recognition through PaddleOCR-VL or
-GOT-OCR, a model daemon, and a COSMIC capture adapter. Native desktop capture
-still needs an interactive verification on COSMIC. PyPI version `0.0.1` contains
-configuration management only. Recognition requires CUDA-enabled PyTorch and a
-working NVIDIA driver. The daemon keeps the model in GPU memory until it stops;
-there is no CPU fallback.
+Formulens runs locally on an NVIDIA GPU. Start its daemon, use a keyboard
+shortcut to select an equation on COSMIC, and paste the recognized LaTeX into
+your notes when the completion notification appears. The daemon keeps the model
+loaded between requests.
 
-## Commands
+You can also recognize an existing image. Temporary screenshots are deleted
+once processing ends; files supplied to `recognize` are preserved.
 
-```bash
-formulens config show
-formulens model-download
-formulens recognize /path/to/equation.png --no-copy
-formulens daemon
-```
+## Get started
 
-Once the daemon reports ready, `formulens capture` opens COSMIC's screenshot
-selector and sends the selected image to the loaded model. Temporary captures
-are deleted after processing. Existing images are preserved.
+1. [Install Formulens](installation.md) with Python 3.14 and CUDA support.
+2. [Start the daemon and configure a capture shortcut](usage.md).
+3. [Choose a model and configure preferences](configuration.md).
 
-Stop the service from any terminal with `formulens daemon off`. Requests,
-recognized equations, timings, and errors appear in the daemon terminal and
-`~/.local/state/formulens/daemon.log`; logs rotate automatically.
+PaddleOCR-VL is the default model; GOT-OCR is also available. Native capture and
+daemon support currently target Linux. Clipboard integration uses Pyperclip.
+Recognition requires NVIDIA CUDA; there is no CPU fallback.
 
-Settings are stored at `~/.config/formulens/formulens.toml`; downloaded models
-use `~/.config/formulens/models` by default. Change this location with
-`formulens config set model_directory /your/model/cache`.
+## More information
 
-See the [repository README](https://github.com/HYP3R00T/formulens#readme) for
-installation, settings, desktop requirements, and development checks.
+- [Usage](usage.md): captures, existing images, daemon shutdown, and logs.
+- [Troubleshooting](troubleshooting.md): GPU setup, notifications, and recognition.
+- [Development](development.md): workspace layout, checks, and local docs.
+- [Release notes](releases.md): the upcoming 0.1.0 release and initial 0.0.1 release.
