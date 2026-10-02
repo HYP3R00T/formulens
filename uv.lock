@@ -1,0 +1,25 @@
+version = 1
+revision = 3
+requires-python = ">=3.14"
+
+[manifest]
+members = [
+    "formulens",
+    "formulens-workspace",
+]
+
+[[package]]
+name = "formulens"
+version = "0.1.0"
+source = { editable = "packages/formulens" }
+
+[[package]]
+name = "formulens-workspace"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "formulens" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "formulens", editable = "packages/formulens" }]
