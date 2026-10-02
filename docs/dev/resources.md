@@ -158,7 +158,7 @@ entering the codebase.
     - [pre-commit.com](https://pre-commit.com)
 
 - **prek (hook installer/runner):**
-  Hook installer and runner used by this template.
+  Hook installer and runner used by Formulens.
     - [prek.j178.dev](https://prek.j178.dev/)
 
 - **Commitizen (commit message standards):**

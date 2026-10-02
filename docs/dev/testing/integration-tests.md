@@ -5,8 +5,8 @@ realistic inputs and minimal mocking.
 
 ## Status
 
-Integration tests are not currently committed in this template. This page defines
-how to add them when your project grows.
+Integration tests are not currently committed in Formulens. This page defines
+how to add them as the application grows.
 
 ## What Integration Tests Should Cover
 

@@ -1,7 +1,7 @@
 [project]
 name = "formulens"
 version = "0.1.0"
-description = "Add your description here"
+description = "Local equation-to-LaTeX recognition with a Linux-first CLI."
 readme = "README.md"
 requires-python = ">=3.14"
 authors = [{ name = "Rajesh", email = "hyperoot.tech@proton.me" }]

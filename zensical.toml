@@ -1,8 +1,8 @@
 [project]
-site_name = "devcontainer-python-template"
-site_description = "Add your description here"
-repo_name = "HYP3R00T/devcontainer-python-template"
-repo_url = "https://github.com/HYP3R00T/devcontainer-python-template"
+site_name = "Formulens"
+site_description = "Local equation-to-LaTeX recognition with a Linux-first CLI."
+repo_name = "HYP3R00T/formulens"
+repo_url = "https://github.com/HYP3R00T/formulens"
 site_author = "Rajesh Das"
 copyright = "Copyright &copy; 2026 Rajesh Das"
 
@@ -10,7 +10,7 @@ nav = [
   { Home = "index.md" },
   { Dev = [
     { Setup = "dev/setup/index.md" },
-    { "Template Setup" = "dev/setup/from-template.md" },
+    { "Getting Started" = "dev/setup/getting-started.md" },
     { Resources = "dev/resources.md" },
     { Contributing = [
       { "Authoring Documentation" = "dev/contributing/authoring-documentation.md" },
@@ -77,7 +77,7 @@ toggle.icon = "lucide/moon"
 toggle.name = "Switch to light mode"
 
 [project.theme.icon]
-logo = "lucide/layout-template"
+logo = "lucide/scan"
 next = "lucide/arrow-right"
 previous = "lucide/arrow-left"
 search = "lucide/search"

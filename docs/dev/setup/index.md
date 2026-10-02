@@ -1,8 +1,8 @@
 # Developer Setup
 
-This page documents the day-to-day development workflow for contributors who are already working in a repository created from this template.
+This page documents the day-to-day development workflow for Formulens contributors.
 
-The primary path is **Dev Container-first** for consistent environments across contributors.
+Use local Linux development for desktop integration. A Dev Container is also available for repository work.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ The primary path is **Dev Container-first** for consistent environments across c
 3. If no prompt appears, run **Dev Containers: Reopen in Container** from Command Palette.
 4. Wait for container setup to finish.
 
-`scripts/setup.sh` runs during container creation, so the environment and dependencies are prepared automatically.
+`scripts/setup.sh` runs during container creation to install the mise tools. Run `uv sync --all-packages` afterward to install the workspace.
 
 ## Pre-commit Hooks
 
@@ -37,22 +37,23 @@ prek install --hook-type commit-msg --overwrite
 Use these commands from the repository root:
 
 ```bash
-uv run ruff check
-uv run ruff format --check
-uv run ty check
-uv run pytest --cov --cov-report=term-missing --cov-fail-under=80
-uv run zensical build --clean
+ruff check
+ruff format --check
+ty check
+uvx zensical build --clean
 ```
 
-## Optional: Local Setup Without Dev Container
+No tests are committed yet. Run `prek run --all-files` for the configured repository checks.
 
-If you are not using Dev Containers, use the fallback local setup path in [Create a New Repository from This Template](from-template.md).
+## Local Setup Without Dev Container
+
+If you are not using Dev Containers, use the fallback local setup path in [Getting Started](getting-started.md).
 
 For local tooling details, see [Resources](../resources.md).
 
 ## Related
 
-- [Create a New Repository from This Template](from-template.md)
+- [Getting Started](getting-started.md)
 - [Resources](../resources.md)
 - [Authoring Documentation](../contributing/authoring-documentation.md)
 - [Naming Conventions](../contributing/naming-conventions.md)

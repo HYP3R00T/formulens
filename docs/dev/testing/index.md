@@ -1,8 +1,8 @@
 # Testing
 
 This section documents how tests are structured, written, and run in this repository.
-The template is intentionally minimal: no committed test suite exists yet, but the
-tooling is configured and ready.
+Formulens has no committed test suite yet. These pages describe conventions for
+adding tests. The current CI runs repository checks through prek.
 
 ## Test Types
 
@@ -19,7 +19,7 @@ Run tests from the repository root.
 
 | Command | What it runs |
 |---|---|
-| `uv run pytest --cov --cov-report=term-missing --cov-fail-under=80` | Full test run with coverage gate used by CI |
+| `uv run pytest --cov --cov-report=term-missing --cov-fail-under=80` | Test command once pytest, pytest-cov, and tests have been added |
 
 ## File Layout
 

@@ -1,5 +1,5 @@
 {
-	"name": "devcontainer-python-template",
+	"name": "Formulens",
 	"build": {
 		"context": ".",
 		"dockerfile": "Dockerfile"

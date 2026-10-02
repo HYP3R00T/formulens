@@ -10,19 +10,18 @@ Use clear nouns that describe purpose.
 
 (GOOD)
 
-- `devcontainer-python-template` - repository package name
-- `devcontainer-python-template-utils` - optional helper package
-- `devcontainer-python-template-cli` - optional CLI package
+- `formulens` - application distribution and Python import name
+- `formulens-workspace` - non-publishable workspace root
 
 (AVOID)
 
 - `core` - too generic
-- `devcontainer_python_template` - underscores are for import/module names, not distribution names
-- `DevcontainerPythonTemplate` - wrong case
+- `formulens_cli` - use hyphens for multiword distribution names
+- `Formulens` - wrong case
 
-Note: the Python import name (the `src/` folder) uses underscores as required by Python
-(e.g. `devcontainer_python_template`), but the installable package name in `pyproject.toml`
-uses hyphens (e.g. `devcontainer-python-template`).
+The application currently lives in one package, `packages/formulens/src/formulens`.
+For future multiword names, use hyphens in distribution names and underscores in
+Python import names.
 
 ## Modules (Files)
 
