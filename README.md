@@ -5,14 +5,14 @@
 
 <p>
   <a href="https://pypi.org/project/formulens/"><img src="https://img.shields.io/pypi/v/formulens?style=flat-square" alt="PyPI version"></a>
-  <a href="https://formulens.hyperoot.dev/installation/"><img src="https://img.shields.io/badge/Python-3.14%2B-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.14+"></a>
-  <a href="https://formulens.hyperoot.dev/installation/"><img src="https://img.shields.io/badge/NVIDIA-CUDA-76B900?style=flat-square&amp;logo=nvidia&amp;logoColor=white" alt="NVIDIA CUDA"></a>
+  <a href="https://formulens.hyperoot.dev/user-guide/installation/"><img src="https://img.shields.io/badge/Python-3.14%2B-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.14+"></a>
+  <a href="https://formulens.hyperoot.dev/user-guide/installation/"><img src="https://img.shields.io/badge/NVIDIA-CUDA-76B900?style=flat-square&amp;logo=nvidia&amp;logoColor=white" alt="NVIDIA CUDA"></a>
   <a href="https://github.com/HYP3R00T/formulens/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT license"></a>
 </p>
 
 <p>
   <a href="https://formulens.hyperoot.dev/">Documentation</a> ·
-  <a href="https://formulens.hyperoot.dev/installation/">Installation</a> ·
+  <a href="https://formulens.hyperoot.dev/user-guide/installation/">Installation</a> ·
   <a href="https://github.com/HYP3R00T/formulens/issues">Issues</a>
 </p>
 
@@ -30,7 +30,7 @@ currently target Linux.
 
 ## Quick Start
 
-Follow the [installation guide](https://formulens.hyperoot.dev/installation/),
+Follow the [installation guide](https://formulens.hyperoot.dev/user-guide/installation/),
 then keep the daemon running:
 
 ```bash

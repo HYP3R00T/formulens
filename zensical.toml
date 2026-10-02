@@ -8,12 +8,16 @@ copyright = "Copyright &copy; 2026 Rajesh Das"
 
 nav = [
   { Home = "index.md" },
-  { Installation = "installation.md" },
-  { Usage = "usage.md" },
-  { Configuration = "configuration.md" },
-  { Troubleshooting = "troubleshooting.md" },
-  { Development = "development.md" },
-  { "Release notes" = "releases.md" },
+  { "User guide" = [
+    { Installation = "user-guide/installation.md" },
+    { Usage = "user-guide/usage.md" },
+    { Configuration = "user-guide/configuration.md" },
+    { Troubleshooting = "user-guide/troubleshooting.md" },
+  ] },
+  { Contributors = [
+    { Development = "contributors/development.md" },
+    { Publishing = "contributors/publishing.md" },
+  ] },
 ]
 
 [project.theme]

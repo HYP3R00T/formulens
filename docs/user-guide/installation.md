@@ -1,8 +1,8 @@
 # Installation
 
-Version 0.1.0 is being prepared for release. Until it is published, install from
-source using the steps below. PyPI version 0.0.1 provides configuration commands
-only, without image recognition or capture.
+Version 0.1.0 includes GPU image recognition and COSMIC capture. Follow the
+source installation below to use the workspace's CUDA-enabled PyTorch setup.
+Version 0.0.1 provides configuration commands only.
 
 ## Requirements
 

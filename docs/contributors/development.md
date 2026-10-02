@@ -14,7 +14,7 @@ Within `packages/formulens/src/formulens/`:
 - `cli.py` assembles the command groups.
 
 Development tools are managed through `mise.toml`. See
-[installation](installation.md) for the source setup.
+[installation](../user-guide/installation.md) for the source setup.
 
 ## Checks
 
@@ -39,11 +39,11 @@ Build the site without serving it:
 uvx zensical build --clean
 ```
 
-Documentation content belongs under `docs/`; navigation is configured in
-`zensical.toml`. Keep both READMEs short and link to these guides for details.
+End-user documentation belongs under `docs/user-guide/`; contributor and
+maintainer guides belong under `docs/contributors/`. Navigation is configured
+in `zensical.toml`. Keep both READMEs short and link to these guides for details.
 
 ## Release preparation
 
-The upcoming package version is 0.1.0. Update release notes, verify the built
-package and CUDA installation, and complete review before publishing. See
-[release notes](releases.md). Version 0.1.0 has not been published yet.
+Follow the [publishing guide](publishing.md) to update the package changelog,
+verify the build, and publish manually.
