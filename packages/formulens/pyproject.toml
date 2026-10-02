@@ -5,7 +5,11 @@ description = "Local equation-to-LaTeX recognition with a Linux-first CLI."
 readme = "README.md"
 requires-python = ">=3.14"
 authors = [{ name = "Rajesh", email = "hyperoot.tech@proton.me" }]
-dependencies = []
+dependencies = [
+    "pydantic>=2.13.5",
+    "typer>=0.27.2",
+    "utilityhub-config>=0.2.7",
+]
 
 [project.scripts]
 formulens = "formulens:main"

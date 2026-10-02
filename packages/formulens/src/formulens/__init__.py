@@ -1,2 +1,7 @@
+"""Formulens command-line entry point."""
+
+
 def main() -> None:
-    print("Hello from formulens!")
+    from formulens.cli import app
+
+    app()
