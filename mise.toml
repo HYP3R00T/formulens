@@ -24,6 +24,10 @@ pya = "source ./.venv/bin/activate"
 run = "uvx zensical serve"
 description = "Serve the documentation locally"
 
+[tasks.install-cli]
+run = "uv tool install --editable ./packages/formulens"
+description = "Install the local Formulens CLI for use from any directory"
+
 [tasks.sync]
 run = "uv sync --upgrade"
 description = "Sync and upgrade packages"
