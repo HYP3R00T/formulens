@@ -56,7 +56,7 @@ class EquationRecognizer:
             revision=revision,
             cache_dir=cache,
             dtype=torch.float16,
-            attn_implementation="eager",
+            attn_implementation="sdpa" if self.settings.model == "paddle" else "eager",
         )
         self.model = model.to(self.device).eval()
 
@@ -95,7 +95,11 @@ class EquationRecognizer:
             generation_options = {"stop_strings": "<|im_end|>", "tokenizer": self.processor.tokenizer}
         with torch.inference_mode():
             generated = self.model.generate(
-                **inputs, do_sample=False, max_new_tokens=self.settings.max_tokens, **generation_options
+                **inputs,
+                do_sample=False,
+                use_cache=True,
+                max_new_tokens=self.settings.max_tokens,
+                **generation_options,
             )
         tokens = generated[0, inputs["input_ids"].shape[1] :]
         if len(tokens) >= self.settings.max_tokens:

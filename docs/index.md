@@ -26,6 +26,10 @@ Once the daemon reports ready, `formulens capture` opens COSMIC's screenshot
 selector and sends the selected image to the loaded model. Temporary captures
 are deleted after processing. Existing images are preserved.
 
+Stop the service from any terminal with `formulens daemon off`. Requests,
+recognized equations, timings, and errors appear in the daemon terminal and
+`~/.local/state/formulens/daemon.log`; logs rotate automatically.
+
 Settings are stored at `~/.config/formulens/formulens.toml`; downloaded models
 use `~/.config/formulens/models` by default. Change this location with
 `formulens config set model_directory /your/model/cache`.

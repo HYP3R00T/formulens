@@ -59,8 +59,23 @@ processed. This does not change your normal screenshot shortcut.
 
 Bind an additional COSMIC custom shortcut to the absolute path printed by
 `command -v formulens`, followed by `capture`. Keep the daemon running while
-using that shortcut. Stop it with Ctrl+C. A daemon loads settings once; restart
-it after changing the model or device.
+using that shortcut. Stop it with Ctrl+C or from another terminal:
+
+```bash
+formulens daemon off
+```
+
+Shutdown waits for any active recognition to finish. The daemon prints timestamps,
+processing status, elapsed time, recognized LaTeX, and errors to its terminal.
+The same logs are stored at `~/.local/state/formulens/daemon.log` (or beneath
+`XDG_STATE_HOME`), with rotation at 2 MiB and three backups. Logs retain recognized
+equations, but screenshots are still deleted after processing.
+
+```bash
+tail -f ~/.local/state/formulens/daemon.log
+```
+
+A daemon loads settings once; restart it after changing the model or device.
 
 Existing images can also use the loaded service:
 
@@ -109,9 +124,11 @@ variables such as `FORMULENS_DEVICE=cuda` override saved values; `set` does not
 persist environment overrides. Formulens confines config discovery to its own
 configuration directory, including any `.env` there.
 
-Paddle recognized a synthetic equation on an RTX 3050 Laptop GPU using CUDA:
-22 seconds for the first request and 12 seconds for the next request, with the
-model staying loaded. Timing and accuracy depend on the equation and hardware.
+Paddle uses optimized SDPA attention and token caching during generation. On an
+RTX 3050 Laptop GPU, a synthetic benchmark improved from about 20 seconds to
+1.4 seconds with identical output. A fresh optimized model took about 3 seconds
+for the first request and 1.2–1.4 seconds afterward. Timing and accuracy depend
+on the equation and hardware. Image resolution is unchanged.
 Paddle remains the default model; GOT misread a synthetic test crop.
 
 ## Code Structure
