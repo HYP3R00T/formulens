@@ -39,9 +39,6 @@ For container development, open the repository in VS Code and select
 prek run --all-files
 ```
 
-See [Getting Started](docs/dev/setup/getting-started.md) for setup and
-[Developer Setup](docs/dev/setup/index.md) for daily commands.
-
 ## License
 
 [MIT](LICENSE).
