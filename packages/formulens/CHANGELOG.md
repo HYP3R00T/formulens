@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 — 2026-10-03
 
 ### Added
 
@@ -9,6 +9,14 @@
 ### Changed
 
 - Use UtilityHub Logging for session files, context, and cleanup while keeping Rich output and rotating logs.
+
+### Fixed
+
+- Refresh the editable CLI environment during installation so new dependencies are available.
+
+### Documentation
+
+- Explain the XDG state directory, session logs, rotation, retention, and live log viewing.
 
 ## 0.1.0 — 2026-10-02
 

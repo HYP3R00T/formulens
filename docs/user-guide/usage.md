@@ -97,10 +97,25 @@ changing its model or inference settings.
 tail -F ~/.local/state/formulens/daemon.log
 ```
 
-The log location follows `XDG_STATE_HOME` if set. UtilityHub Logging creates a
-file per daemon session; `daemon.log` points to the latest one. Each session file
-rotates at 2 MiB, with three backups. Older sessions are retained; remove them
-when no longer needed. Logs contain recognized equations, timings, input paths, and full
-error tracebacks; screenshot deletion does not remove equation text from logs.
-Known upstream compatibility notices are recorded in the file instead of the
-terminal. Unexpected warnings remain visible.
+Logs live in `~/.local/state/formulens/` by default. If `XDG_STATE_HOME` is
+set, they live in `$XDG_STATE_HOME/formulens/`. To follow the latest log with
+either setting:
+
+```bash
+tail -F "${XDG_STATE_HOME:-$HOME/.local/state}/formulens/daemon.log"
+```
+
+UtilityHub Logging creates a timestamped file per daemon session. `daemon.log`
+is a symlink to the latest session, and `tail -F` follows it across restarts.
+Each session file rotates at 2 MiB, keeping up to three backups. Older sessions
+remain on disk; there is no automatic age-based cleanup. You can delete old
+session files and their backups when you no longer need them. On migration from
+the earlier fixed log, its contents are preserved in a `.previous.log` file.
+
+Logs contain recognized equations, timings, input paths, request/session context,
+and full error tracebacks. Screenshot deletion does not remove equation text
+from logs. Known upstream compatibility notices are recorded in the file instead
+of the terminal. Unexpected warnings remain visible.
+
+See [Storage locations](configuration.md#storage-locations) for the directory
+convention and other application files.

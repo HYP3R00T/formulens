@@ -69,9 +69,19 @@ varies with the equation and crop; review recognized LaTeX before using it.
 | --- | --- |
 | Configuration | `~/.config/formulens/formulens.toml` |
 | Downloaded models | `~/.config/formulens/models` |
-| Daemon logs | `~/.local/state/formulens/daemon.log` |
+| Daemon session logs | `~/.local/state/formulens/` |
+| Latest session log | `~/.local/state/formulens/daemon.log` (symlink) |
 | Temporary captures | System temporary directory; deleted after processing |
 | Daemon socket and lock | `$XDG_RUNTIME_DIR/formulens/` |
+
+Logs are runtime state, so they use the state directory rather than
+`~/.config/formulens/logs`, following the
+[XDG Base Directory convention](https://specifications.freedesktop.org/basedir-spec/latest/).
+If `XDG_STATE_HOME` is set, logs go to `$XDG_STATE_HOME/formulens/`; otherwise
+Formulens uses `~/.local/state/formulens/`. This environment override affects
+logs, not configuration or model storage. Restart the daemon after changing it.
+
+See [Read the logs](usage.md#read-the-logs) for rotation, retention, and live viewing.
 
 Model files use Hugging Face's cache layout. To put them in the conventional
 cache directory instead:
