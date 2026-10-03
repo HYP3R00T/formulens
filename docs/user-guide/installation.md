@@ -29,7 +29,9 @@ mise run install-cli
 
 The workspace selects CUDA-enabled PyTorch from the official CUDA 13.0 wheel
 index. The `ocr` extra installs model dependencies. The CLI is installed in
-editable mode, so source changes are available to new CLI processes.
+editable mode, so source changes are available to new CLI processes. After
+dependency changes, rerun `mise run install-cli` to refresh the separate CLI
+environment; syncing the workspace alone does not update it.
 
 If the CLI is not found, run `uv tool update-shell` and open a new terminal.
 

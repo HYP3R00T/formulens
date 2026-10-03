@@ -25,7 +25,7 @@ run = "uvx zensical serve"
 description = "Serve the documentation locally"
 
 [tasks.install-cli]
-run = "uv tool install --editable './packages/formulens[ocr]'"
+run = "uv tool install --reinstall --editable './packages/formulens[ocr]'"
 description = "Install the local Formulens CLI for use from any directory"
 
 [tasks.sync]
