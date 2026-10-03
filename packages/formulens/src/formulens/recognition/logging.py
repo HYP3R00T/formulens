@@ -10,6 +10,9 @@ from pathlib import Path
 
 from rich.console import Console
 from rich.logging import RichHandler
+from utilityhub_logging import cleanup_logging, configure_app_logging
+from utilityhub_logging.cleanup import mark_handler
+from utilityhub_logging.types import ManagedHandlerKind
 
 console = Console(stderr=True)
 
@@ -74,23 +77,38 @@ def get_log_path() -> Path:
     return root / "formulens" / "daemon.log"
 
 
-def configure_logging() -> logging.Logger:
+def configure_logging(*, console_output: bool = True) -> logging.Logger:
     logger = logging.getLogger("formulens.daemon")
-    logger.setLevel(logging.DEBUG)
-    logger.propagate = False
-    for handler in logger.handlers[:]:
-        logger.removeHandler(handler)
-        handler.close()
     path = get_log_path()
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-    file_handler = RotatingFileHandler(path, maxBytes=2 * 1024 * 1024, backupCount=3, encoding="utf-8")
-    path.chmod(0o600)
-    formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
-    file_handler.setFormatter(formatter)
+    session_path = configure_app_logging(
+        app_name="formulens",
+        logger=logger,
+        level="DEBUG",
+        logs_path=path.parent,
+        console=False,
+    )
+    # Keep UtilityHub's formatter/context while adding stdlib size-based rotation.
+    file_handler = next(handler for handler in logger.handlers if isinstance(handler, logging.FileHandler))
+    rotating = RotatingFileHandler(session_path, maxBytes=2 * 1024 * 1024, backupCount=3, encoding="utf-8")
+    rotating.setFormatter(file_handler.formatter)
+    for log_filter in file_handler.filters:
+        rotating.addFilter(log_filter)
+    cleanup_logging(logger)
+    logger.addHandler(mark_handler(rotating, kind=ManagedHandlerKind.APP, file_path=session_path))
+    session_path.chmod(0o600)
+    # Preserve the old fixed log on the first migration; point daemon.log at this run.
+    if path.exists() and not path.is_symlink():
+        path.rename(session_path.with_suffix(".previous.log"))
+    link = path.with_suffix(".log.tmp")
+    link.unlink(missing_ok=True)
+    link.symlink_to(session_path.name)
+    link.replace(path)
+    if not console_output:
+        return logger
     terminal = ConsoleLogHandler(console=console, show_path=False, log_time_format="%H:%M:%S")
     terminal.setLevel(logging.INFO)
     terminal.addFilter(CompatibilityNoticeFilter())
     terminal.setFormatter(logging.Formatter("%(message)s"))
-    for handler in (terminal, file_handler):
-        logger.addHandler(handler)
+    logger.addHandler(mark_handler(terminal, kind=ManagedHandlerKind.APP))
     return logger

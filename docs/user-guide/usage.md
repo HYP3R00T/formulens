@@ -13,6 +13,22 @@ The Rich display shows loading progress, request numbers, processing time, and
 recognized LaTeX. Native capture has been verified in the maintainer's COSMIC
 session.
 
+## Run in the background
+
+```bash
+formulens daemon on
+```
+
+This loads the model, waits until the service is ready, and returns your terminal
+prompt. Initial downloads can make the first start slower. The daemon continues
+running after you close the terminal; logs still go to
+`~/.local/state/formulens/daemon.log`. A second daemon cannot start while one is
+already running.
+
+Stop it with `formulens daemon off`. Use plain `formulens daemon` when you want
+live logs in the terminal. Background mode does not automatically start at login
+or survive a reboot.
+
 ## Capture an equation
 
 From another terminal:
@@ -78,11 +94,13 @@ changing its model or inference settings.
 ## Read the logs
 
 ```bash
-tail -f ~/.local/state/formulens/daemon.log
+tail -F ~/.local/state/formulens/daemon.log
 ```
 
-The log location follows `XDG_STATE_HOME` if set. Files rotate at 2 MiB, with
-three backups. Logs contain recognized equations, timings, input paths, and full
+The log location follows `XDG_STATE_HOME` if set. UtilityHub Logging creates a
+file per daemon session; `daemon.log` points to the latest one. Each session file
+rotates at 2 MiB, with three backups. Older sessions are retained; remove them
+when no longer needed. Logs contain recognized equations, timings, input paths, and full
 error tracebacks; screenshot deletion does not remove equation text from logs.
 Known upstream compatibility notices are recorded in the file instead of the
 terminal. Unexpected warnings remain visible.

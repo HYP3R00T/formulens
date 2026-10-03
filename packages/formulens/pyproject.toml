@@ -24,6 +24,7 @@ dependencies = [
   "rich>=15.0.0",
   "typer>=0.27.2",
   "utilityhub-config>=0.2.7",
+  "utilityhub-logging>=0.1.0",
 ]
 
 [project.urls]

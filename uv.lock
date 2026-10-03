@@ -160,6 +160,7 @@ dependencies = [
     { name = "rich" },
     { name = "typer" },
     { name = "utilityhub-config" },
+    { name = "utilityhub-logging" },
 ]
 
 [package.optional-dependencies]
@@ -181,6 +182,7 @@ requires-dist = [
     { name = "transformers", marker = "extra == 'ocr'", specifier = ">=5.18.0" },
     { name = "typer", specifier = ">=0.27.2" },
     { name = "utilityhub-config", specifier = ">=0.2.7" },
+    { name = "utilityhub-logging", specifier = ">=0.1.0" },
 ]
 provides-extras = ["ocr"]
 
@@ -1048,4 +1050,13 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ec/56/f2eb288aa2f862974e7c6aecfe0578e46a97dd95d79d24728da0e348630a/utilityhub_config-0.2.7.tar.gz", hash = "sha256:a128f36aea6b5ce2fff8025af0e439001491b48a1ee0f98c16b3231e75620574", size = 12190, upload-time = "2026-04-10T13:17:54.589Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c0/ca/85134645f593e1ad995fadc289a3835fdcc8411931cabfad533c2ab428b8/utilityhub_config-0.2.7-py3-none-any.whl", hash = "sha256:044dbd2d413668cc265263991d1f9a654114ffdcab4330f1b7a1cd9548352bd7", size = 17604, upload-time = "2026-04-10T13:17:53.704Z" },
+]
+
+[[package]]
+name = "utilityhub-logging"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/24/66/26dcee32b5ac451ff9dab783cdc9656900668f0c3cfa2bceaf7d8238baa5/utilityhub_logging-0.1.0.tar.gz", hash = "sha256:3c3f29c7daaf556c64cb045260d47fe8f9bc51e3d17c647202404180e74e84f1", size = 4969, upload-time = "2026-06-20T20:09:10.621Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/32/57/6f1b607ad7316863c412fe35da57255346b275884228d7d4077ee3b4b0e2/utilityhub_logging-0.1.0-py3-none-any.whl", hash = "sha256:a1dfc236bb5c50dabf3a25c2860f9e3c79c461236aa38eb3d4eb59f15761516f", size = 8657, upload-time = "2026-06-20T20:09:09.306Z" },
 ]

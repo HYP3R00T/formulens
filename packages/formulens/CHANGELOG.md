@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- `formulens daemon on` starts the GPU service in the background, with file logs and shutdown through `daemon off`.
+
+### Changed
+
+- Use UtilityHub Logging for session files, context, and cleanup while keeping Rich output and rotating logs.
+
 ## 0.1.0 — 2026-10-02
 
 ### Added
