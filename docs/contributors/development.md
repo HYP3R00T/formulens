@@ -23,6 +23,10 @@ uv run --package formulens --extra ocr python -m unittest discover -s tests
 prek run --all-files
 ```
 
+CI runs the same prek hooks, including `uv lock --check`. Keep `uv.lock` as the
+committed dependency lockfile; `requirements.txt` exports are optional local
+files and are ignored to avoid duplicate exports drifting during dependency updates.
+
 The socket integration tests require access to local Unix sockets. Most tests
 use mocked models and do not download weights or run GPU inference. Verify
 changes to inference separately with representative equation images on CUDA.
